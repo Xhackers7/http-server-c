@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc -o main main.c log.c && ./main
+gcc -o main main.c log.c server.c && ./main
