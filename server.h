@@ -9,7 +9,42 @@
 #include <arpa/inet.h>
 #include "config.h"
 
+#define PROTOCOL "HTTP/1.1 "
+
+
+#define STATUS_200 PROTOCOL "200 OK"
+#define STATUS_201 PROTOCOL "201 Created"
+#define STATUS_202 PROTOCOL "202 Accepted"
+
+#define STATUS_400 PROTOCOL "400 Bad Request"
+#define STATUS_401 PROTOCOL "401 Unauthorized"
+#define STATUS_402 PROTOCOL "402 Payment Required"
+#define STATUS_403 PROTOCOL "403 Forbidden"
+#define STATUS_404 PROTOCOL "404 Not Found"
+
+#define STATUS_500 PROTOCOL "500 Internal Server Error"
+#define STATUS_501 PROTOCOL "501 Not Implemented"
+#define STATUS_502 PROTOCOL "502 Bad Gateway"
+#define STATUS_503 PROTOCOL "503 Service Unavailable"
+#define STATUS_504 PROTOCOL "504 Gateway Timeout"
+#define STATUS_505 PROTOCOL "505 HTTP Version Not Supported"
+
+
 #define HTML_FILE "text/html"
+#define CSS_FILE "text/css"
+#define JS_FILE "text/javascript"
+#define JSM_FILE "text/javascript"
+#define JSON_FILE "application/json"
+#define GIF_FILE "image/gif"
+#define ICO_FILE "image/x-icon"
+#define JPG_FILE "image/jpeg"
+#define MP3_FILE "audio/mpeg"
+#define MP4_FILE "video/mp4"
+#define MPEG_FILE "video/mpeg"
+#define PNG_FILE "image/png"
+#define PHP_FILE "application/x-httpd-php"
+#define SVG_FILE "image/svg+xml"
+#define TEXT_FILE "text/plain"
 #define BIN_FILE  "application/octet-stream"
 
 
@@ -33,4 +68,9 @@ const char *parse_HTTP_RESPONSE(const char *status, const char *server, const ch
 
 const char *read_file(const char *filepath);
 
-int send_file(int client_fp, const char *filepath, const char *filetype);
+int send_file(int client_fp, const char *status, const char *filepath, const char *filetype);
+
+
+const char* get_file_extension(const char* file_path);
+
+void parseURI(char *dst, char *filetype, const char *src);
