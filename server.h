@@ -8,9 +8,10 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include "config.h"
+#include "file.h"
+#include "parser.h"
 
 #define PROTOCOL "HTTP/1.1 "
-
 
 #define STATUS_200 PROTOCOL "200 OK"
 #define STATUS_201 PROTOCOL "201 Created"
@@ -29,7 +30,6 @@
 #define STATUS_504 PROTOCOL "504 Gateway Timeout"
 #define STATUS_505 PROTOCOL "505 HTTP Version Not Supported"
 
-
 #define HTML_FILE "text/html"
 #define CSS_FILE "text/css"
 #define JS_FILE "text/javascript"
@@ -45,11 +45,11 @@
 #define PHP_FILE "application/x-httpd-php"
 #define SVG_FILE "image/svg+xml"
 #define TEXT_FILE "text/plain"
-#define BIN_FILE  "application/octet-stream"
+#define BIN_FILE "application/octet-stream"
 
+#define SERVER "Ivan (Alpha 0.24.5.4)"
 
-
-#define HTTP_RESPONSE(status, filetype, data) parse_HTTP_RESPONSE(status, SERVER, filetype, data);
+#define HTTP_HEADER(status, filetype) parse_HTTP_HEADER(status, SERVER, filetype);
 
 typedef struct HTTP_SERVER
 {
@@ -58,19 +58,13 @@ typedef struct HTTP_SERVER
 
 } HTTP_SERVER;
 
-
 HTTP_SERVER *create_server();
 
 int bind_port(HTTP_SERVER *server, unsigned short port);
 
 
-const char *parse_HTTP_RESPONSE(const char *status, const char *server, const char *filetype, const char *data);
-
-const char *read_file(const char *filepath);
-
+/*
+    Tries to read the file provided and send it to the client
+    - sends hardcodded 404 page if file not found or can't be read
+*/
 int send_file(int client_fp, const char *status, const char *filepath, const char *filetype);
-
-
-const char* get_file_extension(const char* file_path);
-
-void parseURI(char *dst, char *filetype, const char *src);

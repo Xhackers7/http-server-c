@@ -5,9 +5,9 @@
 
 static const char *const g_debug_colorCodes[] = {
     [level_debug] = "\033[2;37mDEBUG: ",
-    [level_info] = "\033[0;35mINFO: ",
-    [level_warning] = "\033[1;93mWARNING: ",
-    [level_error] = "\033[1;31mERORR: ",
+    [level_info] = "\033[0;35m",
+    [level_warning] = "\033[1;93mWARN! ",
+    [level_error] = "\033[1;31mERR!! ",
     [level_critical] = "\033[1;97;101mABORTED: ",
 };
 
